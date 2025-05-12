@@ -7,6 +7,7 @@ import { TodoList } from './components/TodoList';
 import { TodoFilter } from './components/TodoFilter';
 import { TodoModal } from './components/TodoModal';
 import { Loader } from './components/Loader';
+import { getTodos, getUser } from './api';
 
 export const App: React.FC = () => {
   return (
@@ -22,7 +23,7 @@ export const App: React.FC = () => {
 
             <div className="block">
               <Loader />
-              <TodoList />
+              <TodoList getTodos={getTodos} getUser={getUser} />
             </div>
           </div>
         </div>
