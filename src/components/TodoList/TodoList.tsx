@@ -3,6 +3,7 @@ import { Todo, TodoState } from '../../types/Todo';
 import { User } from '../../types/User';
 import { TodoModal } from '../TodoModal';
 import { Loader } from '../Loader';
+import { getTodos, getUser } from '../../api';
 
 type TodoListProps = {
   getTodos: () => Promise<Todo[]>;
@@ -12,8 +13,6 @@ type TodoListProps = {
 };
 
 export const TodoList: React.FC<TodoListProps> = ({
-  getTodos,
-  getUser,
   styleFilter,
   inputSearch,
 }) => {
@@ -28,7 +27,7 @@ export const TodoList: React.FC<TodoListProps> = ({
     getTodos()
       .then(todos => setTodosList(todos))
       .finally(() => setIsLoading(false));
-  }, [getTodos]);
+  }, []);
 
   if (isLoading) {
     return <Loader />;
@@ -77,7 +76,9 @@ export const TodoList: React.FC<TodoListProps> = ({
           <tr
             key={todo.id}
             data-cy="todo"
-            className={activeTodo ? 'has-background-info-light' : ''}
+            className={
+              activeTodo?.id === todo.id ? 'has-background-info-light' : ''
+            }
           >
             <td className="is-vcentered">{todo.id}</td>
             <td className="is-vcentered">

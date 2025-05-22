@@ -5,7 +5,6 @@ import '@fortawesome/fontawesome-free/css/all.css';
 
 import { TodoList } from './components/TodoList';
 import { TodoFilter } from './components/TodoFilter';
-import { getTodos, getUser } from './api';
 import { TodoState } from './types/Todo';
 
 export const App: React.FC = () => {
@@ -28,12 +27,7 @@ export const App: React.FC = () => {
             </div>
 
             <div className="block">
-              <TodoList
-                getTodos={getTodos}
-                getUser={getUser}
-                styleFilter={styleFilter}
-                inputSearch={inputSearch}
-              />
+              <TodoList styleFilter={styleFilter} inputSearch={inputSearch} />
             </div>
           </div>
         </div>
