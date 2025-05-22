@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Todo, TodoState } from '../../types/Todo';
 import { User } from '../../types/User';
 import { TodoModal } from '../TodoModal';
+import { Loader } from '../Loader';
 
 type TodoListProps = {
   getTodos: () => Promise<Todo[]>;
@@ -20,10 +21,18 @@ export const TodoList: React.FC<TodoListProps> = ({
   const [currentUser, setCurrenUser] = useState<User>();
   const [isTodoModal, setTodoModal] = useState(false);
   const [activeTodo, setActiveTodo] = useState<Todo | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getTodos().then(todos => setTodosList(todos));
+    setIsLoading(true);
+    getTodos()
+      .then(todos => setTodosList(todos))
+      .finally(() => setIsLoading(false));
   }, [getTodos]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   const handleButtonClick = (todo: Todo) => {
     setActiveTodo(todo);
@@ -44,7 +53,9 @@ export const TodoList: React.FC<TodoListProps> = ({
     newTodosList = todosList.filter(todo => todo.completed === true);
   }
 
-  newTodosList = newTodosList.filter(todo => todo.title.includes(inputSearch));
+  newTodosList = newTodosList.filter(todo =>
+    todo.title.toLowerCase().includes(inputSearch.toLowerCase()),
+  );
 
   return (
     <table className="table is-narrow is-fullwidth">

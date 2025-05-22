@@ -35,6 +35,11 @@ export const TodoFilter = ({
     setInputSearch(event.target.value);
   };
 
+  const handleInputClear = () => {
+    setInput('');
+    setInputSearch('');
+  };
+
   return (
     <form className="field has-addons">
       <p className="control">
@@ -66,11 +71,14 @@ export const TodoFilter = ({
 
         <span className="icon is-right" style={{ pointerEvents: 'all' }}>
           {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-          <button
-            data-cy="clearSearchButton"
-            type="button"
-            className="delete"
-          />
+          {input !== '' && (
+            <button
+              data-cy="clearSearchButton"
+              type="button"
+              className="delete"
+              onClick={handleInputClear}
+            />
+          )}
         </span>
       </p>
     </form>
