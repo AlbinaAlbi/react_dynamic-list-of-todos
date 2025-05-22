@@ -6,8 +6,6 @@ import { Loader } from '../Loader';
 import { getTodos, getUser } from '../../api';
 
 type TodoListProps = {
-  getTodos: () => Promise<Todo[]>;
-  getUser: (userId: number) => Promise<User>;
   styleFilter: TodoState;
   inputSearch: string;
 };
